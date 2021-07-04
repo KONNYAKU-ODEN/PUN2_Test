@@ -46,17 +46,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private AudioSource m_AudioSource;
 
         //オンライン化に必要なコンポーネントを設定
-        public PhotonView myPV;
-        public PhotonTransformView myPTV;
+        PhotonView myPV;
+        PhotonTransformView myPTV;
 
         // Use this for initialization
         private void Start()
         {
-            Debug.Log("myPV " + myPV);
-            Debug.Log("myPV.IsMine " + myPV.IsMine);
+            myPV = GetComponent<PhotonView>();
+            myPTV = GetComponent<PhotonTransformView>();
+
+            //Debug.Log("myPV " + myPV);
+            //Debug.Log("myPV.IsMine " + myPV.IsMine);
             if (!myPV.IsMine)
             {
-                Camera.main.enabled = false;
+                transform.Find("FirstPersonCharacter").GetComponent<Camera>().enabled = false;
+                transform.Find("FirstPersonCharacter").GetComponent<AudioListener>().enabled = false;
+                gameObject.tag = "Player";
                 return;
             }
 
@@ -76,10 +81,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
-            if (!myPV.IsMine)
-            {
-                return;
-            }
+            if (!myPV.IsMine) return;
 
             RotateView();
             // the jump state needs to read here to make sure it is not missed

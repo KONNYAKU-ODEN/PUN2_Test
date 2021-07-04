@@ -34,7 +34,7 @@ public class CLauncherScript : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnConnectedToMasterが呼ばれました");
         // "room"という名前のルームに参加する（ルームが無ければ作成してから参加する）
-        PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions(), TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom("test", new RoomOptions(), TypedLobby.Default);
     }
 
     //ルームに入った時に呼ばれる
