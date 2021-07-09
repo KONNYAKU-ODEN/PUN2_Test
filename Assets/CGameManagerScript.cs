@@ -17,7 +17,7 @@ public class CGameManagerScript : MonoBehaviourPunCallbacks
 			return;
 		}
 		//Photon‚ÉÚ‘±‚µ‚Ä‚¢‚ê‚Î©ƒvƒŒƒCƒ„[‚ğ¶¬
-
+		PhotonNetwork.IsMessageQueueRunning = true;
 		GameObject Player = PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
 	}
 	void OnGUI()

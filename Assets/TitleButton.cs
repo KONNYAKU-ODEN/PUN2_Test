@@ -151,6 +151,7 @@ public class TitleButton : MonoBehaviourPunCallbacks
     //ルームに入った時に呼ばれる
     public override void OnJoinedRoom()
     {
+        PhotonNetwork.IsMessageQueueRunning = false;
         Debug.Log("ルームに入りました。");
         //battleシーンをロード
         //PhotonNetwork.LoadLevel("Battle");
