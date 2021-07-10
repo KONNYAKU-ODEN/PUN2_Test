@@ -1,9 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
+    PhotonView photonView;
+
     Vector3 initialPos;
     bool open = false;
     bool touch = false;
@@ -15,6 +18,7 @@ public class OpenDoor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        photonView = GetComponent<PhotonView>();
         initialPos = transform.position;
         //Debug.Log("initialPos" + initialPos);
     }
@@ -24,17 +28,19 @@ public class OpenDoor : MonoBehaviour
     {
         if(touch && Input.GetKeyDown(KeyCode.E))
         {
-            open = !open;
+            photonView.RPC(nameof(Open), RpcTarget.AllBuffered);
             Debug.Log("open" + open);
         }
 
         if (open && transform.position != targetPos)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+            //photonView.RPC(nameof(MoveDoor), RpcTarget.AllBuffered, targetPos);
         }
         else if (!open && transform.position != initialPos)
         {
             transform.position = Vector3.MoveTowards(transform.position, initialPos, speed * Time.deltaTime);
+            //photonView.RPC(nameof(MoveDoor), RpcTarget.AllBuffered, initialPos);
         }
         
     }
@@ -70,4 +76,17 @@ public class OpenDoor : MonoBehaviour
             Debug.Log("touch:" + touch);
         }
     }
+
+    [PunRPC]
+    private void Open()
+    {
+        open = !open;
+    }
+
+    //// dst‚ÉˆÚ“®‚·‚é
+    //[PunRPC]
+    //void MoveDoor(Vector3 dst)
+    //{
+    //    transform.position = Vector3.MoveTowards(transform.position, dst, speed * Time.deltaTime);
+    //}
 }

@@ -38,6 +38,15 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - MoveDoor
+  - DestroyKey
+  - Open
+  - OpenDoor
+  - PickUpKey
+  - SwitchPick
+  - DecreaseEnemyHP
+  - SendEnemyHP
+  - SendDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
